@@ -1,0 +1,8 @@
+name: manual github actions action on Push
+run-name: run-name
+on: [push]
+jobs: 
+  job-name: 
+    runs-on: ubuntu-latest
+    steps: 
+      - run: echo "A new push has happened"
