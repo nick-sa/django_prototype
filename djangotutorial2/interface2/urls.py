@@ -21,4 +21,6 @@ from interface import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('iole/', views.iole),
+    path('mapLibre/', views.mapLibre),
+    path('', views.iole),
 ]

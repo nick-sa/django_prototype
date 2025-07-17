@@ -28,3 +28,11 @@ def iole(request):
         sensorList.append([sensor.sensorXCoord, sensor.sensorYCoord, sensor.sensorName])
     return render(request, "interface/iole_interface.html", {"nodesFromDB":nodeList, "pipesFromDB":pipeList, "sensorsFromDB":sensorList})
 
+def mapLibre(request):
+    nodes = Node.objects.filter(inpFile = currentInpFile)
+    #nodes = Node.objects.all()
+    nodesToList = list(nodes)
+    nodeList = []
+    for node in nodesToList:
+        nodeList.append([node.nodeXCoord, node.nodeYCoord, node.nodeName])
+    return render(request, "interface/mapLibre.html", {"nodesFromDB":nodeList})
