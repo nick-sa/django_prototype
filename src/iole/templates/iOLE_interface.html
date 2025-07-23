@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block body %}
+<div>
+    <div id="document">
+        <div class="full_background" id="full_background">
+            <div id="listOfJunctions">
+            </div>
+            <div id="listOfPipes">
+            </div>
+            <div id="listOfSensors">
+            </div>
+            <div id="listOfHoverBoxes">
+            </div>
+            <div id="listOfPins">
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <h1 id="hideNodes" style="margin: 200px; display: inline-block;">I'm the focus</h1> -->
+
+
+    <!-- Blue line (iOLE identity) -->
+
+    <div class="blue_line">
+        <img class="blue_line-image" src="{% static 'assets/leakages-blueline_long_transparent.png' %}">
+        <img class="iole_logo" id="ioleLogo" src="{% static 'assets/iOLE.png' %}">
+    </div>
+
+
+    <!-- List of leakages on the left side -->
+
+    <div class="leakages-list" id="leakagesList">
+        <!-- <div class="leakages-item" id="leakagesItem1" data-lat="52.525938" data-lon="13.367749">
+            <img class="list-item-warning_image" src="{% static 'assets/leakages-list-item-yellow_warning.png' %}">
+            <div class="list-item-warning_text">Previous most recent leak</div>
+        </div> -->
+
+
+        <!-- The button to toggle historical data -->
+        <div class="historical-data-selector" id="historicalDataSelector">
+            <img class="list-item-warning_image" src="{% static 'assets/exclamation.png' %}">
+            <div id="showHistoricalData" class="list-item-warning_text">Show past leaks</div>
+        </div>
+    </div>
+
+
+    <!-- Elements containing simulation visualization and controls -->
+
+    <div class="time-slider">
+        <input class="time-slider" type="range" id="simulationTimeSlider" , min="1550517000000" , max="1550862600000" ,
+               value="1550862600000" , step="3600000">
+    </div>
+
+    <div id="simulation-control-id" class="simulation-control">
+        <div id="simulationPlay" class="simulation-control-picture">
+            <img class="play-picture" src="{% static 'assets/iOLE_play.png' %}">
+        </div>
+        <div id="simulationPause" class="simulation-control-picture">
+            <img class="stop-picture" src="{% static 'assets/iOLE_stop.png' %}">
+        </div>
+    </div>
+
+    <div id="simulation-status-id" class="hidden">
+        <div id="simulationTime" class="simulation-time">
+            Simulation
+        </div>
+        <div id="simulationStatus" class="leakage-status">
+            started
+        </div>
+    </div>
+
+    <!-- The element containing the layer selector buttons -->
+
+    <div id="layer-selector-id" class="layer-selector">
+        <div id="hidePipes" class="layer-picture">
+            <img class="sensor-picture" src="{% static 'assets/iOLE_i.png' %}">
+        </div>
+        <div id="hideSensors" class="layer-picture">
+            <img class="sensor-picture" src="{% static 'assets/iOLE_o.png' %}">
+        </div>
+        <div id="hideNodes" class="layer-picture">
+            <img class="node-picture" src="{% static 'assets/iOLE_e.png' %}">
+        </div>
+        <div id="hidePins" class="layer-picture">
+            <img class="pin-picture" src="{% static 'assets/pin.svg' %}">
+        </div>
+        <div id="hidePipeColours" class="layer-picture">
+            <img class="sensor-picture" src="{% static 'assets/iOLE_i_red.png' %}">
+        </div>
+    </div>
+
+
+    <!-- The element containing the input field for notes -->
+
+    <div class="note-input-field note-input-field-hidden" id="noteInputField"></div>
+
+    <!-- The element containing feedback window -->
+
+
+    <div class="company-input-field company-input-field-hidden" id="companyInputField"></div>
+    <div class="email-input-field email-input-field-hidden" id="emailInputField"></div>
+
+    <div class="feedback-input-field feedback-input-field-hidden" id="feedbackInputField"></div>
+
+    <!-- The two elements containing the Grafana plots -->
+
+    <div class="graph_iframe_left" id="graphDivLeft"></div>
+    <div class="graph_iframe_right" id="graphDivRight"></div>
+
+
+    <!-- The element containing the hover suggestion window -->
+
+
+    <div id="feedbackButton" class="feedback-button feedback-button-hidden">Submit Feedback</div>
+    <div id="mouseHoverBox" class="mouse-hover-box"></div>
+
+    <div id="tutorial" class="tutorial-window">
+        <div id="tutorialText">Welcome to the iOLE interface.<br>This short tutorial will explain how to interact with
+            the
+            iOLE interface.
+        </div>
+        <div id="skipTutorial" class="skip-tutorial">Skip this tutorial</div>
+        <div id="startTutorial" class="start-tutorial">Start this short tutorial</div>
+    </div>
+
+    <div id="plotLabelLeft" class="plot-label-left hidden">Leakage detection time shown by red line</div>
+    <div id="plotLabelRight" class="plot-label-right hidden">Leakage detection time shown by red line</div>
+
+
+    <div class="gdpr" id="GDPRContainer" style="display: none">
+        <div class="centered-element">In order to improve our understanding of how users interact with the website,
+            screen
+            resolution, mouse clicks and mouse wheel movements are collected for all visitors of this website. The
+            feedback
+            form asks for an email address and company name in addition to feedback. The data provided in the feedback
+            form
+            is decoupled from mouse interaction data. All collected data is stored for 12 Months and is accessible to
+            all
+            participants of the iOLE project. The data will be used only for user interaction analysis with the goal to
+            improve the website. The data will not be provided to third parties.
+        </div>
+        <div class="bottom-inner-element" id="GDPRButton">I have read the statement above and I understand its meaning.
+        </div>
+    </div>
+</div>
+{% endblock %}
