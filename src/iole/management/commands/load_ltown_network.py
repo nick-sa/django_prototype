@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 from src.iole.models import Node, InpFile, Pipe
 
 
-class Command(BaseCommand):
+class LoadLTownNetwork(BaseCommand):
     help = 'loads nodes.csv and pipes.csv in the db'
 
     def handle(self, *args, **kwargs):
