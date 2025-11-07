@@ -1,0 +1,375 @@
+
+    html, body, #map {
+    margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Figtree-Medium';
+    }
+
+
+
+        @font-face {
+            font-family: Figtree-black;
+            src: url(/static/assets/Figtree-Black.ttf);
+        }
+
+        @font-face {
+            font-family: Figtree-Bold;
+            src: url(/static/assets/Figtree-Bold.ttf);
+        }
+
+        @font-face {
+            font-family: Figtree-Light;
+            src: url(/static/assets/Figtree-Light.ttf);
+        }
+
+        @font-face {
+            font-family: Figtree-Medium;
+            src: url(/static/assets/Figtree-Medium.ttf);
+        }
+
+        @font-face {
+            font-family: Figtree-Regular;
+            src: url(/static/assets/Figtree-Regular.ttf);
+        }
+
+                .map-leakage_pin {
+            pointer-events: none;
+            transform: translate(-50%, -100%);
+            display: flex;
+            #transform-origin: 0px, 0px;
+            opacity: 80%;
+            align-items: center;
+            justify-content: flex-start;
+            width: fit-content;
+            align-items: center;
+            border-radius: 15px;
+        }
+
+    .high-charts-test {
+      position: fixed;
+      bottom: 0%;
+      height: 40%;
+      right: 2.5%;
+      left: 51.25%;
+      #background-color: red;
+    }
+
+        .high-charts-test-left {
+      position: fixed;
+      bottom: 0%;
+      height: 40%;
+      right: 51.25%;
+      left: 2.5%;
+      #background-color: red;
+    }
+
+    .hidden {
+        display:none;
+    }
+
+
+    .toggle-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: white;
+      border: 1px solid #ccc;
+      padding: 6px 12px;
+      margin: 10%;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    .button-box {
+          position: fixed;
+          background-color: red;
+          width: 10%;
+          height: 50%;
+          right: 5%;
+          top: 25%;
+          bottom: 25%;
+          #z-index: 10;
+          display:flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+
+    }
+
+
+
+            .layer-selector {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 1%;
+            #top:1%;
+            bottom: 45%;
+
+            #bottom: 45%;
+            #height: 30%;
+            justify-content: middle;
+            align-items: center;
+            padding: 10px;
+            margin: 10px;
+        }
+
+
+        .layer-selector-top {
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            right: 1%;
+            top:1%;
+            justify-content: middle;
+            align-items: center;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        .layer-picture {
+            display: flex;
+            border-width: 5px;
+            border-radius: 1em;
+            background-color: rgb(255,255,255, 0.5);
+            margin: 0.5vh;
+        }
+
+        .layer-picture:hover {
+            display: flex;
+            border-width: 5px;
+            border-radius: 1em;
+            background-color: rgb(200,200,200, 1);
+            margin: 0.5vh;
+        }
+
+        .sensor-picture {
+            object-fit: contain;
+            width: 7vh;
+            height: 7vh;
+            margin: 0.3em;
+        }
+
+        .node-picture {
+            object-fit: contain;
+            width: 7vh;
+            height: 7vh;
+            margin: 0.3em;
+        }
+        
+        .pin-picture {
+            pointer-events: none;
+            object-fit: contain;
+            width: 7vh;
+            height: 7vh;
+            margin: 0.3em;
+        }
+
+        .leakages-list {
+            display:flex;
+            flex-direction: column;
+            position:fixed;
+            left:1%;
+            bottom: calc(45vh);
+            align-items: center;
+            #max-height: 3vh;
+            cursor: default;
+                        padding: 10px;
+            margin: 10px;
+        }
+
+        .leakages-list-historical {
+            display:flex;
+            flex-direction: column;
+            position:fixed;
+            left:1%;
+            bottom: calc(45vh);
+            align-items: center;
+            max-height: 30vh;
+            overflow-y: auto;
+            cursor: default;
+                        padding: 10px;
+            margin: 10px;
+        }
+
+        .leakages-item {
+            display:flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 15px;
+            margin: 10px;
+            padding: 10px;
+            background-color: white;
+            width: 12vw;
+            animation: fall 1s ease-out forwards;
+        }
+
+        .leakages-item:hover {
+            background-color: #D9D9D9;
+        }
+
+        .leakages-list .leakages-item:not(:first-child) {
+            display: none;
+        }
+
+        .leakages-list-historical .leakages-item:first-child {
+            display: none;
+        }
+
+        .historical-data-selector {
+            display:flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 15px;
+            margin: 10px;
+            padding: 10px;
+            background-color: white;
+            width: 12vw;
+        }
+
+        .historical-data-selector:hover {
+            background-color: #D9D9D9;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .list-item-warning_image {
+            margin-right:10px;
+            height: 2em;
+        }
+
+        .list-item-warning_text {
+            margin-right:10px;
+        }
+
+        .marker-node {
+            #transform: translate(-50%, -50%);
+            #transform-origin: 0px, 0px;
+            width: 2em;
+            height: 2em;
+            border-radius: 2em;
+            #background-image: "/static/assets/iole_o.png";
+            background-color: #2FA5FD;
+            opacity: 0.5;
+            #opacity: 1;
+        }
+
+        .marker-sensor {
+            width:  3em;
+            height: 3em;
+            border-radius: 3em;
+            #background-color: #dbfd2f;
+            opacity: 0.5;
+            #opacity: 1;
+        }
+
+        .visible_pin {
+            display:block;
+        }
+
+        .invisible_pin {
+            display:none;
+        }
+
+
+        .time-slider {
+            display: flex;
+            top:40px;
+            left: 25%;
+            right: 25%;
+            position: fixed;
+            #margin: 15px;
+            #padding: 10px;
+            width: 50%;
+        }
+
+        .simulation-control {
+            display: flex;
+            flex-direction: row;
+            position: fixed;
+            right: 15%;
+            top:0%;
+            justify-content: middle;
+            align-items: center;
+            padding: 10px;
+            margin: 10px;
+            #width: 12em;
+        }
+
+
+        .simulation-control-picture {
+            display: flex;
+            border-width: 5px;
+            border-radius: 1em;
+            background-color: rgb(255,255,255, 0.5);
+            margin: 3%;
+            #height: 3em;
+        }
+
+        .simulation-control-picture:hover {
+            display: flex;
+            border-width: 5px;
+            border-radius: 1em;
+            background-color: rgb(200,200,200, 1);
+            margin: 3%;
+        }
+
+        .play-picture {
+            object-fit: contain;
+            width: 3em;
+            height: 3em;
+            margin: 0.3em;
+        }
+
+        .stop-picture {
+            object-fit: contain;
+            width: 3em;
+            height: 3em;
+            margin: 0.3em;
+        }
+
+        .simulation-status {
+            display: flex;
+            flex-direction: row;
+            position: fixed;
+            right: 30%;
+            left:30%;
+            top:10%;
+            width: 40%;
+            justify-content: center;
+            align-items: middle;
+            padding: 10px;
+            margin: 10px;
+            background-color: rgb(255,255,255, 0.5);
+            border-radius: 1em;
+        }
+
+        .simulation-time {
+            margin-right: 3em;
+        }
+
+        .leakage-status {
+            margin-left: 3em;
+        }
+
+
+
+        .blue_line-image {
+            position: fixed;
+            bottom: 0%;
+            left: 0%;
+            pointer-events: none;
+            opacity: 70%;
+            height: 75%;
+        }        
+        
+        .iole_logo {
+            position: fixed;
+            top: 1%;
+            left: 1%;
+            #pointer-events: none;
+            opacity: 70%;
+            height: 10%;
+            transition: height 3s cubic-bezier(0.5, 0, 0.5, 1);       
+        }

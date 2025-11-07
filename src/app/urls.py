@@ -20,7 +20,10 @@ from src.iole import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('iole/', views.iole),
-    path('mapLibre/', views.mapLibre),
-    path('', views.iole),
+    path('', views.home_page),
+    path('virtual-flow', views.get_virtual_flow),
+    path('virtual-pressure', views.get_virtual_pressure),
+    path('nodes', views.get_nodes),
+    path('pipes', views.get_pipes),
+    path('leakages', views.get_leakages),
 ]

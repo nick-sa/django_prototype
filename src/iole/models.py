@@ -19,7 +19,6 @@ class Node(models.Model):
     def __str__(self):
         return self.name
 
-
 class Pipe(models.Model):
     inp_file = models.ForeignKey(InpFile, models.CASCADE)
     name = models.CharField(max_length=200)
@@ -28,4 +27,43 @@ class Pipe(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class VirtualFlow(models.Model):
+    node = models.ForeignKey(Node, models.CASCADE)
+    time_stamp = models.DateTimeField()
+    value = models.FloatField()
+    
+    def __str__(self):
+        return self.value
+    
+class Leakages(models.Model):
+    inp_file = models.ForeignKey(InpFile, models.CASCADE, blank= True, null=True)
+    leakage_name = models.CharField(max_length = 200)
+    dt_lila = models.DateTimeField(null = True, blank = True)
+    dt_dm = models.DateTimeField(null = True, blank = True)
+    mas_lila = models.CharField(max_length= 200, null = True, blank = True)
+    pipes_dm = models.CharField(max_length=200, null = True, blank = True)
+
+    def __str__(self):
+        return self.leakage_name
+    
+class VirtualPressure(models.Model):
+    node = models.ForeignKey(Node, models.CASCADE)
+    time_stamp = models.DateTimeField()
+    value = models.FloatField()
+    
+    def __str__(self):
+        return self.value
+    
+
+class RawPressure(models.Model):
+    node = models.ForeignKey(Node, models.CASCADE)
+    time_stamp = models.DateTimeField()
+    value = models.FloatField()
+    
+    def __str__(self):
+        return self.time_stamp
+
+
 

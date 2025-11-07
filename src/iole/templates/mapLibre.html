@@ -1,0 +1,224 @@
+{%load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>mapLibre experiments</title>
+    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script>
+        const leakImageUrl = "{% static 'assets/leakages-list-item-red_warning.png' %}";
+    </script>
+    <script src="{% static './js/leakages.js' %}"></script>
+    <script src="{% static './js/map.js' %}"></script>
+    <script src="{% static './js/charts.js' %}"></script>
+    <script src="{% static './js/controller.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static './js/simulation.js' %}"></script>
+
+
+</head>
+
+<body>
+    <div id="html_data" , data-nodes='{{nodesFromDB|json_script:"nodesFromDB"}}' ,
+        data-pipes="{{pipeCoordinates|safe}}"></div>
+    <div id="map"></div>
+    {{ nodesFromDB|json_script:"nodesFromDB" }}
+    {{ pipeCoordinates|json_script:"pipeCoordinates" }}
+    <script>
+
+        //const tileUrl = `${window.location.origin}/static/assets/tiles12/{/z}{x}/{y}.pbf`;
+        
+const map = new maplibregl.Map({
+    container: 'map',
+    style: {
+        version: 8,
+        sources: {
+            localtiles: {
+                type: 'vector',
+                tiles: [
+                    //"{% static 'assets/tiles11/' %}" + "{z}/{x}/{y}.pbf"
+                       'http://localhost:8000/static/assets/tiles12/{z}/{x}/{y}.pbf'
+                      
+                    
+                ],
+                minzoom: 0,
+                maxzoom: 14
+            }
+        },
+        layers: [
+
+            {
+                id: 'waterway',
+                type: 'line',
+                source: 'localtiles',
+                'source-layer': 'waterway',
+                paint: {'line-color': '#4aa3df', 'line-width': 1.5}
+            },
+            {
+                id: 'roads',
+                type: 'line',
+                source: 'localtiles',
+                'source-layer': 'transportation',
+                paint: {'line-color': '#e8e8e8', 'line-width': 2}
+            },
+            {
+                id: 'buildings',
+                type: 'fill',
+                source: 'localtiles',
+                'source-layer': 'building',
+                paint: {'fill-color': '#cecece', 'fill-opacity': 0.6}
+            },
+            {
+    id: 'water',
+    type: 'fill',
+    source: 'localtiles',
+    'source-layer': 'water',
+    paint: {'fill-color': '#cfd1d1'}
+},
+{
+    id: 'landcover',
+    type: 'fill',
+    source: 'localtiles',
+    'source-layer': 'landcover',
+    paint: {'fill-color': '#ebebeb'}
+},
+{
+    id: 'boundary',
+    type: 'line',
+    source: 'localtiles',
+    'source-layer': 'boundary',
+    paint: {'line-color': '#cecece', 'line-width': 1}
+},
+{
+    id: 'place',
+    type: 'symbol',
+    source: 'localtiles',
+    'source-layer': 'place',
+    layout: {'text-field': ['get', 'name']},
+    paint: {'text-color': '#cecece'}
+},
+
+{
+  id: 'street‑names',
+  type: 'symbol',
+  source: 'localtiles',
+  'source-layer': 'transportation_name',
+  layout: {
+    'text-field': ['coalesce', ['get','name'], ['get','name_en'], ['get','ref']],
+    'text-font': ['Open Sans Regular','Arial Unicode MS Regular'],
+    'text-size': [
+      'interpolate',
+      ['linear'],
+      ['zoom'],
+      12, 10,
+      16, 14
+    ],
+    'symbol-placement': 'line',
+    'symbol-spacing': 250,
+    'text-keep-upright': true
+  },
+  paint: {
+    'text-color': '#cecece',
+    'text-halo-color': '#ffffff',
+    'text-halo-width': 1,
+    'text-halo-blur': 0.5
+  }
+}
+        ]
+    },
+  center: [33.0533, 34.684068],  // [longitude, latitude]
+    zoom: 15  // adjust as needed
+});
+
+        console.log("map loaded");
+
+
+
+
+        // End of MODEL (interface with backend) in the context of MVC            
+
+    </script>
+
+
+        <!-- Blue line (iOLE identity) -->
+
+        <div class="blue_line">
+            <img class="blue_line-image" src="{% static './assets/leakages-blueline_long_transparent.png' %}">
+            <img class="iole_logo" id = "ioleLogo" src="{% static './assets/iOLE.png' %}" onclick="window.location.href='https://iole.tech';">
+        </div>
+        
+
+        
+
+
+
+    <!-- The element containing the layer selector buttons -->
+
+    <div id="layer-selector-id" class="layer-selector">
+        <div id="hidePipes" class="layer-picture">
+            <img class="sensor-picture" src="{% static './assets/iOLE_i.png' %}">
+        </div>
+        <div id="hideSensors" class="layer-picture">
+            <img class="sensor-picture" src="{% static './assets/iOLE_o.png' %}">
+        </div>
+        <div id="hideNodes" class="layer-picture">
+            <img class="node-picture" src="{% static './assets/iOLE_e.png' %}">
+        </div>
+        <div id="hidePins" class="layer-picture">
+            <img class="pin-picture" src="{% static './assets/pin.svg' %}">
+        </div>
+        <div id="hidePipeColours" class="layer-picture">
+            <img class="sensor-picture" src="{% static './assets/iOLE_i_red.png' %}">
+        </div>
+    </div>
+
+    <!-- List of leakages on the left side -->
+
+    <div class="leakages-list" id="leakagesList">
+        <div class="leakages-item" id="leakagesItem1" data-lat="52.525938" data-lon="13.367749">
+            <img class="list-item-warning_image" src="{% static './assets/leakages-list-item-yellow_warning.png' %}">
+            <div class="list-item-warning_text">Previous most recent leak</div>
+        </div>
+
+        <!-- The button to toggle historical data -->
+        <div class="historical-data-selector" id="historicalDataSelector">
+            <img class="list-item-warning_image" src="{% static './assets/exclamation.png' %}">
+            <div id="showHistoricalData" class="list-item-warning_text">Show past leaks</div>
+        </div>
+    </div>
+
+    <!-- Elements containing simulation visualization and controls -->
+
+    <div class="time-slider">                                                                          
+        <input class="time-slider" type="range" id="simulationTimeSlider" min="1548198000000", max="1549148400000", value="1548198000000", step="36000000">
+    </div>
+
+    <div id="simulation-control-id" class="simulation-control">
+        <div id="simulationPlay" class="simulation-control-picture">
+            <img class="play-picture" src="{% static './assets/iOLE_play.png' %}">
+        </div>
+        <div id="simulationPause" class="simulation-control-picture">
+            <img class="stop-picture" src="{% static './assets/iOLE_stop.png' %}">
+        </div>
+    </div>
+
+    <div id="simulation-status-id" class="hidden">
+        <div id="simulationTime" class="simulation-time">
+            Simulation
+        </div>
+        <div id="simulationStatus" class="leakage-status">
+            started
+        </div>
+    </div>
+
+
+
+    <div id="highChartsTest" class="high-charts-test"></div>
+    <div id="highChartsTestLeft" class="high-charts-test-left"></div>
+
+</body>
+
+</html>

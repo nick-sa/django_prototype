@@ -1,0 +1,16 @@
+<svg width="200" height="200" viewBox="0 0 200 200"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="probabilistic-gradient" cx="50%" cy="50%" r="50%">
+      <!-- Center: strongest red -->
+      <stop offset="0%" stop-color="red" stop-opacity="0.7"/>
+      <!-- Mid: medium opacity -->
+      <stop offset="40%" stop-color="red" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="red" stop-opacity="0.15"/>
+      <!-- Outer: faint -->
+      <stop offset="100%" stop-color="red" stop-opacity="0.0"/>
+    </radialGradient>
+  </defs>
+
+  <circle cx="100" cy="100" r="90" fill="url(#probabilistic-gradient)" />
+</svg>
