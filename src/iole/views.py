@@ -27,10 +27,14 @@ def home_page(request):
     nodeList = []
     for node in list(nodes):
         nodeList.append([node.y_coordinate, node.x_coordinate, node.name, node.has_sensor])
+
     #nodeList_dictionary = dict(nodes = nodeList)
 
-
-    return render(request, "mapLibre.html", {"nodesFromDB": nodeList, "pipeCoordinates": pipe_coordinates} )
+    return render(request, "mapLibre.html", {
+        "nodes": list(nodes.values("name", "has_sensor", "x_coordinate", "y_coordinate")),
+        "nodesFromDB": nodeList,
+        "pipeCoordinates": pipe_coordinates
+    })
 
 
 

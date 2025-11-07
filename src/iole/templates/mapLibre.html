@@ -5,14 +5,13 @@
 
 <head>
     <title>mapLibre experiments</title>
-    <script src="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.js"></script>
-    <link href="https://unpkg.com/maplibre-gl@^5.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+    <script src="https://unpkg.com/maplibre-gl@^5.11.0/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@^5.11.0/dist/maplibre-gl.css" rel="stylesheet" />
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script>
         const leakImageUrl = "{% static 'assets/leakages-list-item-red_warning.png' %}";
     </script>
     <script src="{% static './js/leakages.js' %}"></script>
-    <script src="{% static './js/map.js' %}"></script>
     <script src="{% static './js/charts.js' %}"></script>
     <script src="{% static './js/controller.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -22,15 +21,12 @@
 </head>
 
 <body>
-    <div id="html_data" , data-nodes='{{nodesFromDB|json_script:"nodesFromDB"}}' ,
-        data-pipes="{{pipeCoordinates|safe}}"></div>
     <div id="map"></div>
+    {{ nodes|json_script:"nodes" }}
     {{ nodesFromDB|json_script:"nodesFromDB" }}
     {{ pipeCoordinates|json_script:"pipeCoordinates" }}
     <script>
 
-        //const tileUrl = `${window.location.origin}/static/assets/tiles12/{/z}{x}/{y}.pbf`;
-        
 const map = new maplibregl.Map({
     container: 'map',
     style: {
@@ -39,17 +35,13 @@ const map = new maplibregl.Map({
             localtiles: {
                 type: 'vector',
                 tiles: [
-                    //"{% static 'assets/tiles11/' %}" + "{z}/{x}/{y}.pbf"
-                       'http://localhost:8000/static/assets/tiles12/{z}/{x}/{y}.pbf'
-                      
-                    
+                    `${window.location.origin}{% static 'assets/tiles12/' %}` + "{z}/{x}/{y}.pbf"
                 ],
                 minzoom: 0,
                 maxzoom: 14
             }
         },
         layers: [
-
             {
                 id: 'waterway',
                 type: 'line',

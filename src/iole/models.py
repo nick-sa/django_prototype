@@ -19,6 +19,7 @@ class Node(models.Model):
     def __str__(self):
         return self.name
 
+
 class Pipe(models.Model):
     inp_file = models.ForeignKey(InpFile, models.CASCADE)
     name = models.CharField(max_length=200)
@@ -36,18 +37,33 @@ class VirtualFlow(models.Model):
     
     def __str__(self):
         return self.value
-    
+
+
+"""
+class Leakage(models.Model):
+    description = models.CharField(max_length=200)
+    model = models.CharField(choices=[LILA, DM])
+    detection_time = ...
+    pipes = ...
+    most_affected_sensor = ...
+"""
+
+
 class Leakages(models.Model):
-    inp_file = models.ForeignKey(InpFile, models.CASCADE, blank= True, null=True)
-    leakage_name = models.CharField(max_length = 200)
-    dt_lila = models.DateTimeField(null = True, blank = True)
-    dt_dm = models.DateTimeField(null = True, blank = True)
-    mas_lila = models.CharField(max_length= 200, null = True, blank = True)
-    pipes_dm = models.CharField(max_length=200, null = True, blank = True)
+    inp_file = models.ForeignKey(InpFile, models.CASCADE, blank=True, null=True)
+    leakage_name = models.CharField(max_length=200)
+    # detection time
+    dt_lila = models.DateTimeField(null=True, blank=True)
+    dt_dm = models.DateTimeField(null=True, blank=True)
+    # most affected sensor
+    mas_lila = models.CharField(max_length=200, null=True, blank=True)
+    # dual model
+    pipes_dm = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return self.leakage_name
-    
+
+
 class VirtualPressure(models.Model):
     node = models.ForeignKey(Node, models.CASCADE)
     time_stamp = models.DateTimeField()

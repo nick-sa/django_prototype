@@ -157,14 +157,14 @@ class Controller {
 
   addNodeLayer() {
 
-    let nodes = JSON.parse(document.getElementById("nodesFromDB").textContent);
-    console.log("parsed nodes", nodes);
+    let nodes_data = JSON.parse(document.getElementById("nodes").textContent);
+    console.log("parsed nodes", nodes_data);
     let linePairs = JSON.parse(document.getElementById("pipeCoordinates").textContent);
     console.log("parsed pipes", linePairs);
-    for (let i = 0; i < nodes.length; i++) {
+    for (let i = 0; i < nodes_data.length; i++) {
       let element = document.createElement('div');
-
-      element.id = nodes[i][2];
+      const node = nodes_data[i];
+      element.id = node["name"];
       node_markers.push(element);
 
       element.className = "marker-node";
@@ -172,8 +172,8 @@ class Controller {
       element.style.height = (Math.pow(1.5, map.getZoom() - 15)) + "em";
 
 
-
-      new maplibregl.Marker({ element: element }).setLngLat([nodes[i][0], nodes[i][1]]).addTo(map);
+      console.log([node.x_coordinate, node.y_coordinate])
+      new maplibregl.Marker({ element: element }).setLngLat([node.x_coordinate, node.y_coordinate]).addTo(map);
     }
     this.nodesVisible = true;
 
